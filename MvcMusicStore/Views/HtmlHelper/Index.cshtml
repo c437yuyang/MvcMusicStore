@@ -1,0 +1,54 @@
+﻿@model MvcMusicStore.Models.Album
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        @*--class是C#关键字，所以要加@,data-validation因为中间有-，但是不能用于c#，所以用了_，会自动转换成- *@
+        @using (Html.BeginForm("HandleSubmit", "HtmlHelper", FormMethod.Get, new { target = "_blank", @class = "editForm" ,data_validation=true})) 
+        {
+            @Html.TextArea("Name", "hello <br> world")
+
+            @Html.Hidden("aaa", 1)
+            @Html.HiddenFor(m => m.AlbumId)
+            @Html.DropDownList("Genres")
+            @Html.DropDownListFor(u => u.GenreId, ViewBag.Genres as SelectList) @*强类型的写法，都是后面带一个for*@
+            @Html.Label("GenreId", "Genere")
+
+            //red:
+            <span>red</span>
+            @Html.RadioButton("color", "red")
+            //blue:
+            <span>blue</span>
+            @Html.RadioButton("color", "blue", true)
+            //green:
+            <span>green</span>
+            @Html.RadioButton("color", "green")
+
+
+            @Html.CheckBox("IsDisconnect", true)
+            @Html.CheckBox("IsDisconnect1")
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+
+        @Html.ActionLink("Link Test","HandleSubmit","HtmlHelper")
+        @Html.RouteLink("Link Test", new { action="HandleSubmit",controller="StoreManager"})
+
+
+
+
+    </div>
+</body>
+</html>
